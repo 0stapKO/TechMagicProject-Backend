@@ -3,6 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const userRoutes = require('../src/routers/userRoutes');
 const departmentRoutes = require('../src/routers/departmentRoutes');
+const expenseTypeRoutes = require('../src/routers/expenseTypeRoutes');
+const loginRoute = require('../src/routers/loginRoute');
 
 const app = express();
 
@@ -13,6 +15,8 @@ app.use(express.json());
 // маршрути
 app.use('/api/users', userRoutes);
 app.use('/api/departments', departmentRoutes);
+app.use('/api/expense-types', expenseTypeRoutes);
+app.use('/api/login', loginRoute);
 
 // якщо маршрут не знайдено
 app.use((req, res, next) => {
