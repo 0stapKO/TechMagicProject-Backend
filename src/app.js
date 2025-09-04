@@ -5,6 +5,7 @@ const userRoutes = require('../src/routers/userRoutes');
 const departmentRoutes = require('../src/routers/departmentRoutes');
 const expenseTypeRoutes = require('../src/routers/expenseTypeRoutes');
 const loginRoute = require('../src/routers/loginRoute');
+const expenseRoute = require('../src/routers/expensesRoutes');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/departments', departmentRoutes);
 app.use('/api/expense-types', expenseTypeRoutes);
 app.use('/api/login', loginRoute);
+app.use('/api/expenses', expenseRoute);
 
 // якщо маршрут не знайдено
 app.use((req, res, next) => {
