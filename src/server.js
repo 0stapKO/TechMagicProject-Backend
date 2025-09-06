@@ -4,7 +4,9 @@ const connectDB = require('./config/db');
 
 // підключаємо MongoDB
 connectDB();
-require('./models/test');
+// require('./models/test');
+
+
 
 // запускаємо сервер
 const PORT = process.env.PORT || 5000;

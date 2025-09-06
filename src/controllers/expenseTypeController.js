@@ -7,8 +7,10 @@ const getAllTypes = (req, res) => {
 }
 const addType = (req, res) => {
     const newType = JSON.parse(JSON.stringify(req.body));
-    ExpenseType.create(newType);
-  res.status(201).json({ message: 'Type added' });
+    if(!newType.name) newType.name = 'Новий вид витрат'
+    ExpenseType.create(newType)
+    .then(type => {res.status(201).json(type.id)})
+    .catch(err => res.status(500).json({ message: 'Error creating type', error: err }));
 }
 const deleteType = (req, res) => {
     const typeId = req.params.id;
@@ -16,5 +18,12 @@ const deleteType = (req, res) => {
       .then(() => res.status(200).json({ message: 'Type deleted' }))
       .catch(err => res.status(500).json({ message: 'Error deleting type', error: err }));
 }
+const editType = (req, res) => {
+    const typeId = req.params.id;
+    const updatedData = JSON.parse(JSON.stringify(req.body));
+    ExpenseType.findByIdAndUpdate(typeId, updatedData, { new: true })
+      .then(updatedType => res.status(200).json(updatedType))
+      .catch(err => res.status(500).json({ message: 'Error updating type', error: err }));
+}
 
-module.exports = { getAllTypes, addType, deleteType };
+module.exports = { getAllTypes, addType, deleteType, editType };

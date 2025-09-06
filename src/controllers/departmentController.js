@@ -27,3 +27,6 @@ const editDepartment = (req, res) => {
 }
 
 module.exports = { addDepartment, deleteDepartment, getAllDepartments, editDepartment};
+
+
+
