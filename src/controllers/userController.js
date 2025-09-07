@@ -10,7 +10,7 @@ const getAllUsers = async (req, res) => {
     }
 }
 const addUser = (req, res) => {
-    const newUser = JSON.parse(JSON.stringify(req.body));
+    const newUser = req.body;
     User.create(newUser)
     .then(user => res.status(201).json(user.id));
 }
@@ -22,7 +22,7 @@ const deleteUser = (req, res) => {
 }
 const editUser = (req, res) => {
     const userId = req.params.id;
-    const updatedData = JSON.parse(JSON.stringify(req.body));
+    const updatedData = req.body;
     updatedData.department = new mongoose.Types.ObjectId(updatedData.department.id)
     User.findByIdAndUpdate(userId, updatedData, { new: true })
         .populate('department', 'name').populate('expenses')

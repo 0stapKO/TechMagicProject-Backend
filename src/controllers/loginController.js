@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
 const login = async (req, res) => {
-    const { email, password } = JSON.parse(JSON.stringify(req.body));
+    const { email, password } = req.body;
     const user = await User.findOne({ email, password });
     if (user) {
         const token = jwt.sign({ user }, process.env.JWT_SECRET); 

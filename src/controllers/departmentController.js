@@ -6,7 +6,7 @@ const getAllDepartments = (req, res) => {
       .catch(err => res.status(500).json({ message: 'Error fetching departments', error: err }));
 }
 const addDepartment = (req, res) => {
-    const newDepartment = JSON.parse(JSON.stringify(req.body));
+    const newDepartment = req.body;
     Department.create(newDepartment)
       .then(department => res.status(201).json(department.id))
       .catch(err => res.status(500).json({ message: 'Error creating department', error: err }));
@@ -20,7 +20,7 @@ const deleteDepartment = (req, res) => {
 
 const editDepartment = (req, res) => {
     const departmentId = req.params.id;
-    const updatedData = JSON.parse(JSON.stringify(req.body));
+    const updatedData = req.body;
     Department.findByIdAndUpdate(departmentId, updatedData, { new: true })
       .then(updatedDepartment => res.status(200).json(updatedDepartment))
       .catch(err => res.status(500).json({ message: 'Error updating department', error: err }));

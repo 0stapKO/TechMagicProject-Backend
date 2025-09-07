@@ -6,7 +6,7 @@ const getAllTypes = (req, res) => {
       .catch(err => res.status(500).json({ message: 'Error fetching types', error: err }));
 }
 const addType = (req, res) => {
-    const newType = JSON.parse(JSON.stringify(req.body));
+    const newType = req.body;
     if(!newType.name) newType.name = 'Новий вид витрат'
     ExpenseType.create(newType)
     .then(type => {res.status(201).json(type.id)})
@@ -20,7 +20,7 @@ const deleteType = (req, res) => {
 }
 const editType = (req, res) => {
     const typeId = req.params.id;
-    const updatedData = JSON.parse(JSON.stringify(req.body));
+    const updatedData = req.body;
     ExpenseType.findByIdAndUpdate(typeId, updatedData, { new: true })
       .then(updatedType => res.status(200).json(updatedType))
       .catch(err => res.status(500).json({ message: 'Error updating type', error: err }));
