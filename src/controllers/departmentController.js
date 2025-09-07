@@ -1,5 +1,5 @@
 const Department = require('../models/departmentModel');
-
+const User = require('../models/userModel')
 const getAllDepartments = (req, res) => {
     Department.find()
       .then(departments => res.status(200).json(departments))

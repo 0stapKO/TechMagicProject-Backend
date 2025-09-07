@@ -1,4 +1,5 @@
 const Expense = require('../models/expenseModel');
+const User = require('../models/userModel')
 
 const getAllExpenses = (req, res) => {
     Expense.find().populate('department').populate('user').populate('type')
@@ -7,6 +8,10 @@ const getAllExpenses = (req, res) => {
 }
 const addExpense = (req, res) => {
     const newExpense = req.body;
+    const user = req.user;
+    if(user.role === 'user') {
+      newExpense.user = user.id;
+    }
     Expense.create(newExpense).then((expense) => {
       res.status(201).json(expense.id);
     })
@@ -29,6 +34,12 @@ const editExpense = (req, res) => {
   .then(() => res.status(200).json({ message: 'Expense updated' }))
   .catch(err => res.status(500).json({ message: 'Error updating expense', error: err }));
 }
+const getUserExpense = (req, res) => {
+  const userId = req.params.id;
+  Expense.find({user: userId}).populate('department').populate('user').populate('type')
+  .then((expenses) => { console.log(expenses); res.status(200).json(expenses)})
+  .catch(err => res.status(500).json({ message: 'Error updating expense', error: err }));
+}
 
 
-module.exports = { addExpense, deleteExpense, getAllExpenses, editExpense };
+module.exports = { addExpense, deleteExpense, getAllExpenses, editExpense, getUserExpense };
