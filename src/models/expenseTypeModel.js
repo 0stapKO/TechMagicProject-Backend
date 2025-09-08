@@ -4,6 +4,7 @@ const expenseTypeSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String},
   max_amount: { type: Number, required: true },
+  spent: {type: Number, required: true }
 });
 
 expenseTypeSchema.set('toJSON', {
